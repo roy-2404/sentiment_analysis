@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div id="datepicker_wrapper">Select Keyword:
+  <select class="datepicker">
+    <option value="blank" selected="selected">Please select a keyword</option>
+    <option value="Donald Trump">Donald Trump</option>
+    <option value="Hillary Clinton">Hillary Clinton</option>
+    <option value="Alan Kurdi">Alan Kurdi</option>
+    <option value="Pope Francis">Pope Francis</option>
+    <option value="Climate Change">Climate Change</option>
+    <option value="Global Warming">Global Warming</option>
+    <option value="Putin">Putin</option>
+    <option value="Angela Merkel">Angela Merkel</option>
+    <option value="El Nino">El Nino</option>
+    <option value="Falcon 9">Falcon 9</option>
+  </select>
+</div>
+<div id="map" data-tweet='{{map_input}}'></div>
+<div id="center-button">
+  <div id="center-ui" title="Click to recenter the map">
+    <div id="center-text">Center Map</div>
+  </div>
+</div>
+<div id="reset-button">
+  <div id="reset-ui" title="Reset">
+    <div id="reset-text">Reset</div>
+  </div>
+</div>
+
+<div>Icons made by <a href="http://www.flaticon.com/authors/dave-gandy" title="Dave Gandy">Dave Gandy</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+
+<div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+
+<div>Icons made by <a href="http://www.flaticon.com/authors/icomoon" title="Icomoon">Icomoon</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+
+
+<!-- <div id="selectpoint-button">
+  <div id="selectpoint-ui" title="SelectPoint">
+    <div id="selectpoint-text">Select Point</div>
+  </div>
+</div>
+ -->
+<!-- Include Google Maps library -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkOF-XCvogzQK8CQH-cMcE4gIhLQhN4Pg&libraries=visualization"></script>
+
+<!-- Include JQuery library -->
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='heatmap.js') }}"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+
+{% endblock %}

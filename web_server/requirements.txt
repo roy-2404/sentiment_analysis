@@ -1,0 +1,10 @@
+elasticsearch==1.9.0
+elasticsearch-dsl==2.0.0
+Flask==0.10.1
+itsdangerous==0.24
+Jinja2==2.8
+oauthlib==1.0.3
+requests-aws4auth==0.9
+requests-oauthlib==0.6.1
+tweepy==3.5.0
+Werkzeug==0.7

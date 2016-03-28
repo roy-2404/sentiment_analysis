@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+  <head>
+    {% if title %}
+    <title>{{title}} - Twitter Map</title>
+    {% else %}
+    <title>Twitter Map</title>
+    {% endif %}
+    <link rel='shortcut icon' href="{{ url_for('static', filename='favicon.ico') }}" type='image/x-icon'/ >
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  </head>
+  <body>
+    {% block body %}{% endblock %}
+  </body>
+</html>
