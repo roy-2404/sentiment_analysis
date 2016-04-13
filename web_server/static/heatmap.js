@@ -75,26 +75,15 @@ function main() {
   response = $('#map').data('tweet');
   renderTweetmap(response);
   centerMap(map);
-  // map.controls[google.maps.ControlPosition.TOP_CENTER].push(document.getElementById('reset-button'));
-  // setupSelectPoint(map);
  
   // Add click listener for geo-location
   google.maps.event.addListener(map, 'click', function (e) {
-      var locJSON = "{";
-      locJSON += "\"dist\":" + "\"100mi\",";
-      locJSON += "\"lat\":" + e.latLng.lat() + ",";
-      locJSON += "\"lon\":" + e.latLng.lng();
-      locJSON += "}";
-      locationSearch(locJSON);
-    // if (respondToMapClick) {
-    //   var locJSON = "{";
-    //   locJSON += "\"dist\":" + "\"100mi\",";
-    //   locJSON += "\"lat\":" + e.latLng.lat() + ",";
-    //   locJSON += "\"lon\":" + e.latLng.lng();
-    //   locJSON += "}";
-    //   locationSearch(locJSON);
-    // }
-    // respondToMapClick = false;
+    var locJSON = "{";
+    locJSON += "\"dist\":" + "\"100mi\",";
+    locJSON += "\"lat\":" + e.latLng.lat() + ",";
+    locJSON += "\"lon\":" + e.latLng.lng();
+    locJSON += "}";
+    locationSearch(locJSON);
   });
 
   setResetPosition(map);
@@ -105,7 +94,6 @@ function main() {
 }
 
 function renderTweetmap(response) {
-
   // Remove all markers first
   if ( tweetmarkers != null && tweetmarkers.length > 0 ) {
     for (var j = 0; j < tweetmarkers.length; j++) {
@@ -115,19 +103,10 @@ function renderTweetmap(response) {
 
   var iconBase = 'static/';
 
-  //var data = [];
   tweetmarkers = [];
   // Transform data format
   var tweets = response.tweets;
   for (i in tweets) {
-    //data.push(new google.maps.LatLng(parseFloat(tweets[i].lat), parseFloat(tweets[i].lon)));
-    // var sent = 'neutral';
-    // if ( tweets[i].sentiment == 'positive' ) {
-    //   sent = 'smile';
-    // } else if ( tweets[i].sentiment == 'negative' ) {
-    //   sent = 'frown';
-    // }
-
     var marker = new google.maps.Marker({
       position: {lat: tweets[i].lat, lng: tweets[i].lon},
       map: map,
@@ -136,18 +115,7 @@ function renderTweetmap(response) {
     });
 
     tweetmarkers.push(marker);
-
   }
-
-  // var pointArray = new google.maps.MVCArray(data);
-
-  // // Create heatmap
-  // heatmap = new google.maps.visualization.HeatmapLayer({
-  //   data: pointArray
-  // });
-  // heatmap.set('radius', heatmap.get('radius') ? null : 15);
-  // heatmap.set('opacity', heatmap.get('opacity') ? null : .75);
-  // heatmap.setMap(map);
 }
 
 window.onload = main;

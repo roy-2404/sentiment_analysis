@@ -28,8 +28,7 @@ class TwitterHelper:
 
   @staticmethod
   def indexSentimentTweet(payload):
-    #print('indexing: ', payload)
-    TwitterHelper.ES.index(index='sentiment_tweets', doc_type='sentiment_tweet', body=payload)
+    TwitterHelper.ES.index(index = 'tweets', doc_type = 'tweet', body = payload)
 
   @staticmethod
   def searchTweets(keyword, latlondist):
@@ -46,11 +45,11 @@ class TwitterHelper:
       s = s.query({"filtered" : {"query" : {"match_all" : {}}, "filter" : {"geo_distance" : {"distance" : locJson['dist'], "location" : {"lat" : locJson['lat'], "lon" : locJson['lon']}}}}})
 
     if keyword != None:
-      q = Q("match", text = keyword)
+      q = Q("match_phrase", text = keyword)
       s = s.query(q)
     
     scanResp = None
-    scanResp = helpers.scan(client = TwitterHelper.ES, query = s.to_dict(), scroll = "1m", index = "sentiment_tweets", timeout = "1m")
+    scanResp = helpers.scan(client = TwitterHelper.ES, query = s.to_dict(), scroll = "1m", index = "tweets", timeout = "1m")
 
     arr = []
     for resp in scanResp:

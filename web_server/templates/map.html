@@ -34,13 +34,6 @@
 
 <div>Icons made by <a href="http://www.flaticon.com/authors/icomoon" title="Icomoon">Icomoon</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
 
-
-<!-- <div id="selectpoint-button">
-  <div id="selectpoint-ui" title="SelectPoint">
-    <div id="selectpoint-text">Select Point</div>
-  </div>
-</div>
- -->
 <!-- Include Google Maps library -->
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkOF-XCvogzQK8CQH-cMcE4gIhLQhN4Pg&libraries=visualization"></script>
 
@@ -48,6 +41,13 @@
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='heatmap.js') }}"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='jquery.js') }}"></script>
 
-
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+<script>  
+  var socket = io.connect('http://' + document.domain + ':' + location.port);
+  socket.on('refresh_tweets', function(data) {
+    alert('New tweets arrived. Refresh webpage to view.');
+  });
+</script>
 {% endblock %}
