@@ -67,44 +67,44 @@ class TwitterStreamListener(StreamListener):
     print("status: ", status)
 
 if __name__ == '__main__':
-  es.indices.delete(index='tweets')
-  mapping = '''
-  {
-    "mappings" : {
-      "tweet" : {
-        "properties" : {
-          "text" : {"type" : "string"},
-          "name" : {"type" : "string"},
-          "created_at" : {"type" : "string"},
-          "location" : {"type" : "geo_point"},
-          "sentiment" : {"type" : "string"}
-        }
-      }
-    }
-  }'''
-  es.indices.create(index='tweets', ignore=400, body=mapping)
+  # es.indices.delete(index='tweets')
+  # mapping = '''
+  # {
+  #   "mappings" : {
+  #     "tweet" : {
+  #       "properties" : {
+  #         "text" : {"type" : "string"},
+  #         "name" : {"type" : "string"},
+  #         "created_at" : {"type" : "string"},
+  #         "location" : {"type" : "geo_point"},
+  #         "sentiment" : {"type" : "string"}
+  #       }
+  #     }
+  #   }
+  # }'''
+  # es.indices.create(index='tweets', ignore=400, body=mapping)
   #This handles Twitter authetication and the connection to Twitter Streaming API
-  # print('Getting SQS-Queue...')
-  # sqs = boto3.resource('sqs')
-  # tweetqueue = sqs.get_queue_by_name(QueueName = SQS_QUEUE_NAME)
-  # print('Obtained SQS-Queue.')
+  print('Getting SQS-Queue...')
+  sqs = boto3.resource('sqs')
+  tweetqueue = sqs.get_queue_by_name(QueueName = SQS_QUEUE_NAME)
+  print('Obtained SQS-Queue.')
 
-  # l = TwitterStreamListener( tweetqueue )
-  # auth = OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
-  # auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
-  # stream = Stream(auth, l)
+  l = TwitterStreamListener( tweetqueue )
+  auth = OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+  auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
+  stream = Stream(auth, l)
 
-  # i = 0
-  # keepGoing = True
-  # while keepGoing:
-  #   try:
-  #     i = i + 1
-  #     print ('Streaming... ' + str(i))
-  #     # Get tweets from every corner of the world
-  #     stream.filter(locations = [-180,-90,180,90])
-  #   except KeyboardInterrupt:
-  #     keepGoing = False
-  #   except Exception as e:
-  #     print ('Caught exception...')
-  #     print (e)
-  #     continue
+  i = 0
+  keepGoing = True
+  while keepGoing:
+    try:
+      i = i + 1
+      print ('Streaming... ' + str(i))
+      # Get tweets from every corner of the world
+      stream.filter(locations = [-180,-90,180,90])
+    except KeyboardInterrupt:
+      keepGoing = False
+    except Exception as e:
+      print ('Caught exception...')
+      print (e)
+      continue
