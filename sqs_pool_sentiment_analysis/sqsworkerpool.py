@@ -26,7 +26,7 @@ def processmessage(msgbody, msgid):
 
     # Call  SNS to send to our HTTP Endpoint
     try:
-      sns = boto3.resource('sns')
+      sns = boto3.resource('sns', region_name='us-east-1')
       platform_endpoint = sns.PlatformEndpoint(snsPlatformArn)
       snsResponse = platform_endpoint.publish(Message = payload)
       if snsResponse['ResponseMetadata']['HTTPStatusCode'] != 200:
@@ -34,8 +34,7 @@ def processmessage(msgbody, msgid):
       else:
         print('Successfully sent message to SNS: ', payload)
     except Exception as e:
-      print( e )
-
+      print(e)
   return {'loop': True, 'message_id':msgid}
 
 class SQSWorkerPool():
@@ -63,10 +62,9 @@ class SQSWorkerPool():
 
 if __name__ == '__main__':
   # Connect to SQS
-  sqs = boto3.resource('sqs')
+  sqs = boto3.resource('sqs', region_name='us-east-1')
   # Get the queue. This returns an SQS.Queue instance
   tweetqueue = sqs.get_queue_by_name(QueueName = sqsQueueName)
-  # Define important variables
   numworkers = 3
   pool = SQSWorkerPool(numworkers)
   pool.monitorqueue(tweetqueue, processmessage)

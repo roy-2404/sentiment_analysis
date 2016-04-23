@@ -14,18 +14,18 @@ ACCESS_TOKEN_SECRET = os.environ.get("TWITTER_ACCESS_TOKEN_SECRET")
 CONSUMER_KEY = os.environ.get("TWITTER_CONSUMER_KEY")
 CONSUMER_SECRET = os.environ.get("TWITTER_CONSUMER_SECRET")
 SQS_QUEUE_NAME = os.environ.get("SQS_QUEUE_NAME")
-AWS_ACCESS_KEY = os.environ.get("AWS_ACCESS_KEY")
-AWS_SECRET_KEY = os.environ.get("AWS_SECRET_KEY")
+AWS_ACCESS_KEY = os.environ.get("AWS_ACCESS_KEY_ID")
+AWS_SECRET_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
 REGION = 'us-east-1'
 AWS_ELASTICSEARCH_HOST = os.environ.get("AWS_ELASTICSEARCH_HOST")
 AWSAUTH = AWS4Auth(AWS_ACCESS_KEY, AWS_SECRET_KEY, REGION, 'es')
 
 es = Elasticsearch(
-    hosts=[{'host': AWS_ELASTICSEARCH_HOST, 'port': 443}],
-    http_auth=AWSAUTH,
-    use_ssl=True,
-    verify_certs=True,
-    connection_class=RequestsHttpConnection
+  hosts=[{'host': AWS_ELASTICSEARCH_HOST, 'port': 443}],
+  http_auth=AWSAUTH,
+  use_ssl=True,
+  verify_certs=True,
+  connection_class=RequestsHttpConnection
 )
 
 class TwitterStreamListener(StreamListener):
@@ -85,7 +85,7 @@ if __name__ == '__main__':
   # es.indices.create(index='tweets', ignore=400, body=mapping)
   #This handles Twitter authetication and the connection to Twitter Streaming API
   print('Getting SQS-Queue...')
-  sqs = boto3.resource('sqs')
+  sqs = boto3.resource('sqs', region_name='us-east-1')
   tweetqueue = sqs.get_queue_by_name(QueueName = SQS_QUEUE_NAME)
   print('Obtained SQS-Queue.')
 
