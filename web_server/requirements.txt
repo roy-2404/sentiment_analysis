@@ -15,5 +15,5 @@ requests-aws4auth==0.9
 requests-oauthlib==0.6.1
 SQLAlchemy==1.0.10
 tweepy==3.5.0
-urllib3==1.14
+urllib3==1.26.5
 Werkzeug==0.11.2
